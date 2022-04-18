@@ -13,6 +13,20 @@
     padding: 5px 0;
 }
 
+.edited-sign {
+    font-size: 10px;
+    color: #000;
+    font-weight: 700;
+}
+
+.overflow-scroll {
+    overflow: scroll;
+}
+
+.date {
+    line-height: 1;
+}
+
 @media screen and (max-width:480px) {
     .title-buttons {
         display: none!important;
