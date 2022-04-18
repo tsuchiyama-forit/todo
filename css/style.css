@@ -1,0 +1,28 @@
+.todo {
+    min-height: 90.5vh;
+}
+
+.edit-col {
+    border-right: 1px solid #dee2e6;
+    border-left: 1px solid #dee2e6;
+}
+
+.table-title {
+    font-size: 18px;
+    font-weight: 700;
+    padding: 5px 0;
+}
+
+@media screen and (max-width:480px) {
+    .title-buttons {
+        display: none!important;
+    }
+
+    .edit-col {
+        border-left: none;
+    }
+
+    .content-buttons {
+        margin-top: 10px;
+    }
+}
