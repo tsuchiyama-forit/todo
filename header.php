@@ -15,7 +15,7 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-dark">
         <div class="container-fluid justify-content-center">
-            <a class="navbar-brand text-light" href="#">ToDoアプリケーション</a>
+            <a class="navbar-brand text-light" href="./">ToDoアプリケーション</a>
         </div>
         </nav>
     </header>
