@@ -33,10 +33,14 @@
 
             <?php
             // If There is Search_item Show Search Items Only
-            if (isset($_POST['search_item'])) {
+            if (isset($_POST['search_item']) || $_GET['search_item']) {
                 try {
 
                     $search_item = htmlspecialchars($_POST['search_item']);
+
+                    if (empty($search_item)) {
+                        $search_item = htmlspecialchars($_GET['search_item']);
+                    }
 
                     // Getting Data From DB
                     $dsn = 'mysql:dbname=todo;host=localhost;charset=utf8';
@@ -45,7 +49,35 @@
                     $dbh = new PDO($dsn, $user, $password);
                     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-                    $sql = 'SELECT * FROM posts WHERE title LIKE :search OR content LIKE :search ORDER BY id DESC';
+                    // For Pagination
+
+                    if(isset($_GET['page_no'])) {
+                        $pageno = $_GET['page_no'];
+                    } else {
+                        $pageno = 1;
+                    }
+
+                    $returnPage = $pageno - 1;
+                    if ($returnPage == 0) {
+                        $returnPage = 1;
+                    }
+                    $nextPage = $pageno + 1;
+                    if ($nextPage == $total_pages) {
+                        $nextPage = $total_pages;
+                    }
+
+                    $limit = 6;
+                    $query = 'SELECT count(*) FROM posts WHERE title LIKE :search OR content LIKE :search';
+
+                    $statement = $dbh->prepare($query);
+                    $statement->bindValue(':search' , '%'.$search_item.'%',);
+                    $statement->execute();
+                    $total_results = $statement->fetchColumn();
+                    $total_pages = ceil($total_results/$limit);
+
+                    $starting_limit = ($pageno-1)*$limit;
+
+                    $sql = 'SELECT * FROM posts WHERE title LIKE :search OR content LIKE :search ORDER BY id DESC LIMIT '.$starting_limit.','.$limit;
                     $stmt = $dbh->prepare($sql);
                     $stmt->bindValue(':search' , '%'.$search_item.'%',);
                     $stmt->execute();
@@ -72,7 +104,7 @@
                                             <a class="btn btn-success" href="./edit.php?id=<?php echo $rec['id']; ?>" role="button">編集</a>
                                         </div>
                                         <div class="col-6">
-                                            <a class="btn btn-danger" href="./delete.php?id=<?php echo $rec['id']; ?>" role="button">削除</a>
+                                            <a class="btn btn-danger" href="./delete.php?id=<?php echo $rec['id']; ?>&page_no=<?php echo $pageno; ?><?php echo (isset($search_item)) ? '&search_item='.$search_item : '' ?>" role="button">削除</a>
                                         </div>
                                     </div>
                                 </div>
@@ -156,7 +188,7 @@
                                     <a class="btn btn-success" href="./edit.php?id=<?php echo $rec['id']; ?>" role="button">編集</a>
                                 </div>
                                 <div class="col-6">
-                                    <a class="btn btn-danger" href="./delete.php?id=<?php echo $rec['id']; ?>" role="button">削除</a>
+                                    <a class="btn btn-danger" href="./delete.php?id=<?php echo $rec['id']; ?>&page_no=<?php echo $pageno; ?>" role="button">削除</a>
                                 </div>
                             </div>
                         </div>
@@ -195,7 +227,8 @@
                             </div>
                             <div class="mb-3">
                                 <label for="content-input" class="form-label">内容</label>
-                                <textarea class="form-control" name="content" id="content-input" rows="3" required></textarea>                            </div>
+                                <textarea class="form-control" name="content" id="content-input" rows="3" required></textarea>                            
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
@@ -206,27 +239,25 @@
             </div>
         </div>
     </div>
-    <?php
-    if (!isset($_POST['search_item'])):
-    ?>
     <nav aria-label="Page navigation">
         <ul class="pagination mt-3">
-        <li class='page-item <?php echo ($pageno == 1)? 'hidden' : '' ?>'><a class='page-link' href='?page_no=<?php echo $returnPage;?>'>戻る</a></li>
+        <li class='page-item <?php echo ($pageno == 1)? 'disabled' : '' ?>'><a class='page-link' href='?page_no=<?php echo $returnPage;?><?php echo (isset($search_item)) ? '&search_item='.$search_item : '' ?>'>戻る</a></li>
         <?php
         for ($counter = 1; $counter <= $total_pages; $counter++){
             if ($counter == $pageno) {
             echo "<li class='active page-item'><a class='page-link'>$counter</a></li>";	
             }else{
-            echo "<li class='page-item'><a class='page-link' href='?page_no=$counter'>$counter</a></li>";
+                if (isset($search_item)) {
+                    echo "<li class='page-item'><a class='page-link' href='?page_no=$counter&search_item=$search_item'>$counter</a></li>";
+                } else {
+                    echo "<li class='page-item'><a class='page-link' href='?page_no=$counter'>$counter</a></li>";
+                }
             }
         }
         ?>
-        <li class='page-item <?php echo ($pageno == $total_pages)? 'hidden' : '' ?>'><a class='page-link' href='?page_no=<?php echo $nextPage;?>'>次へ</a></li>
+        <li class='page-item <?php echo ($pageno == $total_pages)? 'disabled' : '' ?>'><a class='page-link' href='?page_no=<?php echo $nextPage;?><?php echo (isset($search_item)) ? '&search_item='.$search_item : '' ?>'>次へ</a></li>
         </ul>
     </nav>
-    <?php
-    endif;
-    ?>
 </div>
 
 <!-- Get Footer -->
