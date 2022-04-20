@@ -36,7 +36,7 @@ try {
     $dbh->query($query);
     $results = (array)$dbh->resultArray();
 
-    
+    $dbh->endDatabase();
 
     // For文で$resultsの中身を取り出す
     for ($i=0; $i < count($results); $i++) {
