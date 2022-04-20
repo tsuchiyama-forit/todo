@@ -14,6 +14,7 @@
                     ToDo 新規作成
                 </button>
             </div>
+            <!-- 検索フォーム -->
             <form action="./" method="POST" class="d-flex align-items-center col-12 col-lg-4 text-right search-form">
                 <label for="search_bar" class="me-3">検索バー</label>
                 <input type="text" id="search_bar" name="search_item" class="form-control w-50 me-1">
@@ -36,15 +37,10 @@
                 ?>
 
         </div>
-            <!-- Sort.php　呼び出す -->
-            <?php require('./sort-bar.php'); ?>
-        <!-- ToDo 新規作成 Modal -->
-        <?php require('./todo-new-modal.php'); ?>
-    </div>
-    <!-- Pagination呼び出す -->
-    <?php require('./pagination.php'); ?>
+            <?php require('./sort-bar.php'); ?>      <!-- Sort.php　呼び出す -->
+        <?php require('./todo-new-modal.php'); ?>    <!-- ToDo 新規作成 Modal -->
+    </div>  <!-- Container 終了  -->
+    <?php require('./pagination.php'); ?>    <!-- Pagination呼び出す -->
 </div>
 <!-- Get Footer -->
-<?php
-    require_once('./footer.php');
-?>
+<?php require_once('./footer.php'); ?>

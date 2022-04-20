@@ -12,15 +12,12 @@ try {
     }
 
     $returnPage = $pageno - 1;
-    if ($returnPage == 0) {
-        $returnPage = 1;
-    }
     $nextPage = $pageno + 1;
-    if ($nextPage == $total_pages) {
-        $nextPage = $total_pages;
-    }
-
     $limit = 6;
+
+    ($returnPage == 0) ? $returnPage = 1 : ''; // If ReturnPage is 0 Make Its Value into 1
+    ($nextPage == $total_pages) ? $nextPage = $total_pages : ''; // If NextPage is Equal to TotalPages Turn Its Value into TotalPages Value
+
 
     $dbh->query('SELECT count(*) FROM posts');
     $dbh->execute();
@@ -29,7 +26,7 @@ try {
     $total_pages = ceil($total_results/$limit);
     $starting_limit = ($pageno-1)*$limit;
 
-    // Getting posts data
+    // Getting posts data (If There is Sort change Order By Value)
     if(isset($_POST['sort']) && $_POST['sort'] !== '') {
         $query = 'SELECT * FROM posts ORDER BY created_at '.$_POST['sort'].' LIMIT '.$starting_limit.','.$limit;
     } else {
@@ -39,7 +36,7 @@ try {
     $dbh->query($query);
     $results = (array)$dbh->resultArray();
 
-    $dbh = null;
+    
 
     // For文で$resultsの中身を取り出す
     for ($i=0; $i < count($results); $i++) {

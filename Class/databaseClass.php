@@ -85,6 +85,10 @@ class DataBase {
 		return $this->stmt->fetchColumn();
 	}
 
+    public function endDatabase() {
+        $this->dbh = null;
+    }
+
     
     
 }
