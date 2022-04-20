@@ -1,7 +1,7 @@
 <!-- Get Header -->
 <?php
     $page_title = 'ToDoアプリ｜編集';
-    require_once('./header.php');
+    require_once('./inc/header.php');
 
     try {
         $post_id = $_GET['id'];
@@ -57,5 +57,5 @@
 
 <!-- Get Footer -->
 <?php
-    require_once('./footer.php');
+    require_once('./inc/footer.php');
 ?>

@@ -1,7 +1,8 @@
 <!-- Get Header -->
 <?php
     $page_title = 'ToDoアプリ｜トップページ';
-    require_once('./header.php');
+    require_once('./inc/header.php');
+    require_once('./Class/SelectClass.php');
 ?>
 
 <div class="todo d-flex align-items-center flex-column justify-content-center">
@@ -122,15 +123,7 @@
                     echo '失敗しました：'. $e->getMessage();
                 }
             } else {
-
-                try {
-                    // Getting Data From DB
-                    $dsn = 'mysql:dbname=todo;host=localhost;charset=utf8';
-                    $user = 'root';
-                    $password = '';
-                    $dbh = new PDO($dsn, $user, $password);
-                    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
+                try {                    
                     // For Pagination
 
                     if(isset($_GET['page_no'])) {
@@ -147,66 +140,55 @@
                     if ($nextPage == $total_pages) {
                         $nextPage = $total_pages;
                     }
+                    // SelectClass インスタンス
+                    $selectClass = new SelectClass();
 
+                    $table = 'posts';
+                    $order_by = 'id';
                     $limit = 6;
-                    $query = 'SELECT count(*) FROM posts';
-
-                    $statement = $dbh->prepare($query);
-                    $statement->execute();
-                    $total_results = $statement->fetchColumn();
+                    
+                    $total_results = $selectClass->getTotalResult($table,$order_by);
                     $total_pages = ceil($total_results/$limit);
-
                     $starting_limit = ($pageno-1)*$limit;
+                    
 
-                    // Getting posts data
-                    $sql = 'SELECT * FROM posts ORDER BY id DESC LIMIT '.$starting_limit.','.$limit;
-                    $stmt = $dbh->prepare($sql);
-                    $stmt->execute();
+                    $results = $selectClass->selectPagination($table,$order_by,$starting_limit,$limit);
 
-                    $dbh = null;
                     // Start While Statement
-                        while(true) {
-                            $rec = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                            if ($rec == false) {
-                                break;
-                            }
+                    for ($i=0; $i < count($results); $i++):
+                        $rec = (array)$results[$i];
                     ?>
-                    <div class="todo-item border-bottom pt-2 pb-2 <?php echo ($bgFlg % 2 == 0) ? 'bg-light' : '' ?>">
-                        <div class="row text-center align-items-center">
-                            <div class="col-4 col-lg-3 overflow-scroll"><?php echo htmlspecialchars($rec['title']); ?></div>
-                            <div class="col-4 col-lg-3 overflow-scroll"><?php echo htmlspecialchars($rec['content']); ?></div>
-                            <div class="col-4 col-lg-3 date"><?php echo ($rec['created_at'] == $rec['updated_at'])? htmlspecialchars($rec['created_at']) : htmlspecialchars($rec['updated_at']); ?>
-                                <?php
-                                    if($rec['edit_flg'] == 1) {
-                                        echo '<br><small class="edited-sign">編集済み</small>';
-                                    }
-                                ?>
-                            </div>
-                            <div class="col-12 col-lg-3 content-buttons d-flex justify-content-between">
-                                <div class="col-6 edit-col">
-                                    <a class="btn btn-success" href="./edit.php?id=<?php echo $rec['id']; ?>" role="button">編集</a>
+                        <div class="todo-item border-bottom pt-2 pb-2 <?php echo ($bgFlg % 2 == 0) ? 'bg-light' : '' ?>">
+                            <div class="row text-center align-items-center">
+                                <div class="col-4 col-lg-3 overflow-scroll"><?php echo htmlspecialchars($rec['title']); ?></div>
+                                <div class="col-4 col-lg-3 overflow-scroll"><?php echo htmlspecialchars($rec['content']); ?></div>
+                                <div class="col-4 col-lg-3 date"><?php echo ($rec['created_at'] == $rec['updated_at'])? htmlspecialchars($rec['created_at']) : htmlspecialchars($rec['updated_at']); ?>
+                                    <?php
+                                        if($rec['edit_flg'] == 1) {
+                                            echo '<br><small class="edited-sign">編集済み</small>';
+                                        }
+                                    ?>
                                 </div>
-                                <div class="col-6">
-                                    <a class="btn btn-danger" href="./delete.php?id=<?php echo $rec['id']; ?>&page_no=<?php echo $pageno; ?>" role="button">削除</a>
+                                <div class="col-12 col-lg-3 content-buttons d-flex justify-content-between">
+                                    <div class="col-6 edit-col">
+                                        <a class="btn btn-success" href="./edit.php?id=<?php echo $rec['id']; ?>" role="button">編集</a>
+                                    </div>
+                                    <div class="col-6">
+                                        <a class="btn btn-danger" href="./delete.php?id=<?php echo $rec['id']; ?>&page_no=<?php echo $pageno; ?>" role="button">削除</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
                     <?php
                         $bgFlg++;
-                        }
-                    // End While Statement    
+                    endfor;
                 }
                 catch (Exception $e) {
                     print 'ただいま障害により大変ご迷惑をお掛けしております。';
                     var_dump($e->getMessage());
                     exit();
                 }
-
-                $bgFlg = 1;
-                
             }
                 ?>
 
@@ -262,5 +244,5 @@
 
 <!-- Get Footer -->
 <?php
-    require_once('./footer.php');
+    require_once('./inc/footer.php');
 ?>
