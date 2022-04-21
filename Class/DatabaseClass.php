@@ -26,6 +26,7 @@ class DatabaseClass {
         catch (PDOException $e) {
             $this->error = $e->getMessage();
             echo $this->error;
+            exit();
         }
     }
 
@@ -33,6 +34,19 @@ class DatabaseClass {
     public function execute() {
         return $this->stmt->execute();
     }
+
+    public function insertExecute($data) {
+        return $this->stmt->execute($data);
+    }
+
+    public function prepareQuery($sql) {
+        $this->stmt = $this->dbh->prepare($sql);
+    }
+
+    public function endDatabase() {
+        $this->dbh = null;
+    }
+
 }
 
 

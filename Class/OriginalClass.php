@@ -2,7 +2,7 @@
 
 // Original Functions will be Written here
 
-class OrginalClass {
+class OriginalClass {
 
     // Function for htmlspecialchars
     public function specialCharCheck($text) {

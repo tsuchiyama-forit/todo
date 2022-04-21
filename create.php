@@ -1,9 +1,11 @@
 <?php
-
+// CreateClass　呼び込む
+require_once('./Class/CreateClass.php');
 // OrignalClass 呼び込む
 require_once('./Class/OriginalClass.php');
 
-$original = new OrginalClass();
+$original = new OriginalClass();
+$createClass = new CreateClass();
 
 $post_title = $_POST['title'];
 $post_content = $_POST['content'];
@@ -22,28 +24,7 @@ if ($original->checkEmpty($post_title) || $original->checkEmpty($post_content) )
     exit();
 }
 
-
-try {
-
-    $dsn = 'mysql:dbname=todo;host=localhost;charset=utf8';
-    $user = 'root';
-    $password = '';
-    $dbh = new PDO($dsn, $user, $password);
-    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    $sql = 'INSERT INTO posts (title,content) VALUES (?,?)';
-    $stmt = $dbh->prepare($sql);
-    $data[] = $post_title;
-    $data[] = $post_content;
-    $stmt->execute($data);
-
-    $dbh = null;
-
-    header('Location: ./index.php');
-
-} catch (Exception $e) {
-    print 'ただいま障害により大変ご迷惑をお掛けしております。';
-    exit();
-}
+$createClass->insertPost($post_title,$post_content);
+header('Location: ./index.php');
 
 ?>
