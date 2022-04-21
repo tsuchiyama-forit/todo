@@ -9,6 +9,9 @@
             $('#sort_select').on('change', function() {
                 if ($(this).val != '') {
                     var url = './?sort=' + $(this).val();
+                    if (findGetParameter('page_no') != null) {
+                        url = url + '&page_no=' + findGetParameter('page_no');
+                    }
                     if(url) {
                         window.location = url;
                     }
@@ -16,6 +19,21 @@
                 return false;
             });
         });
+
+
+        function findGetParameter(parameterName) {
+            var result = null,
+                tmp = [];
+            location.search
+                .substr(1)
+                .split("&")
+                .forEach(function (item) {
+                tmp = item.split("=");
+                if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+                });
+            return result;
+        }
+
     </script>
 </body>
 </html>
