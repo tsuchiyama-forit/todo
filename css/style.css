@@ -1,5 +1,10 @@
 .todo {
-    min-height: 90.5vh;
+    min-height: 88.9vh;
+    background-color: #f3f3f3;
+}
+
+.todo .container {
+    background-color: #fff;
 }
 
 .edit-col {
@@ -61,6 +66,10 @@
 
     .content-buttons {
         margin-top: 10px;
+    }
+
+    .content-buttons a {
+        font-size: 10px;
     }
 
     .search-form {
