@@ -35,7 +35,7 @@ $result = $selectClass->SearchSelect($table,$order_by,$where,$starting_limit,$li
 if (count($result) != 0) { 
     //  For文の中身を取り出す
     for ($i=0; $i < count($result); $i++):
-        $rec = (array)$result[$i];
+        $rec = $result[$i];
         require('./inc/todo-row-template.php');
         $bgFlg++;
     endfor;

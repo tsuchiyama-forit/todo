@@ -50,6 +50,9 @@
         <!-- ToDo 新規作成 Modal -->
         <?php require_once('./inc/new-modal-template.php'); ?>
     </div>
+    <div class="title mt-3">
+        <h2><?php echo ($selectClass->getSearchItem() != null) ?  $original->specialCharCheck($selectClass->getSearchItem()).'の検索結果': 'すべてのToDoリスト' ?></h2>
+    </div>
     <?php require_once('./inc/pagination-template.php'); ?>
 </div>
 

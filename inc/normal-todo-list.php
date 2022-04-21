@@ -26,7 +26,7 @@
 
     //  For文の中身を取り出す
     for ($i=0; $i < count($results); $i++):
-        $rec = (array)$results[$i];
+        $rec = $results[$i];
         require('./inc/todo-row-template.php');
         $bgFlg++;
     endfor;

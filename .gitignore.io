@@ -56,6 +56,11 @@ Temporary Items
 
 # Support for Project snippet scope
 
+.DS_Store
+*/.DS_Store
+*/*/.DS_Store
+*/*/*/.DS_Store
+
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,macos
 
 

@@ -19,8 +19,8 @@
     $post_title = $rec['title'];
     $post_content = $rec['content'];
 
-    $post_content = htmlspecialchars($post_content,ENT_QUOTES,'UTF-8');
-    $post_title = htmlspecialchars($post_title,ENT_QUOTES,'UTF-8');
+    $post_content = $original->specialCharCheck($post_content);
+    $post_title = $original->specialCharCheck($post_title);
 ?>
 
 <div class="todo d-flex align-items-center">

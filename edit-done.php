@@ -5,6 +5,7 @@ require_once('./Class/EditClass.php');
 // OriginalClass 呼び込む
 require_once('./Class/OriginalClass.php');
 
+$original = new OriginalClass();
 $editClass = new EditClass();
 
 
@@ -12,9 +13,10 @@ $post_id = $_POST['post_id'];
 $post_title = $_POST['title'];
 $post_content = $_POST['content'];
 
-$post_id = htmlspecialchars($post_id,ENT_QUOTES,'UTF-8');
-$post_title = htmlspecialchars($post_title,ENT_QUOTES,'UTF-8');
-$post_content = htmlspecialchars($post_content,ENT_QUOTES,'UTF-8');
+$post_id = $original->specialCharCheck($post_id);
+$post_content = $original->specialCharCheck($post_content);
+$post_title = $original->specialCharCheck($post_title);
+
 
 $today = date("Y-m-d");
 

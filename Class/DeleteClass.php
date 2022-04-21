@@ -7,7 +7,7 @@ class DeleteClass extends DatabaseClass {
         $sql = 'DELETE FROM posts WHERE id = ?';
         $this->prepareQuery($sql);
         $data[] = $post_id;
-        $this->WithDataExecute($data);
+        $this->execute($sql,null,$data);
     }
 }
 

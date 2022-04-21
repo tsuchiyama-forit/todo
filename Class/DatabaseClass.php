@@ -31,12 +31,19 @@ class DatabaseClass {
     }
 
     // Execute $stmt
-    public function execute() {
-        return $this->stmt->execute();
-    }
-
-    public function WithDataExecute($data) {
-        $this->stmt->execute($data);
+    public function execute($sql, $search_item = null, $data = null) {
+        $this->prepareQuery($sql);
+        // SearchItemがNullではなければ、SearchのためのBindをする
+        if (!is_null($search_item)) {
+            $this->stmt->bindValue(':search', '%'.$search_item.'%',PDO::PARAM_STR);
+        }
+        // DataがNullではなければそれと同時に実行する
+        if (!is_null($data)) {
+            $this->stmt->execute($data);
+        } else {
+            $this->stmt->execute();
+        }
+        return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function prepareQuery($sql) {

@@ -13,9 +13,8 @@ class EditClass extends DatabaseClass {
         }
         $sql .= 'FROM '.$table.' WHERE id = ?';
 
-        $this->prepareQuery($sql);
-        $this->WithDataExecute($data);
-        return $this->stmt->fetch(PDO::FETCH_ASSOC);
+        $results = $this->execute($sql,null,$data);
+        return $results[0];
     }
 
     public function updateData($column,$table,$data) {
@@ -27,8 +26,7 @@ class EditClass extends DatabaseClass {
             $sql .= ' ';
         }
         $sql .= 'WHERE id = ?';
-        $this->prepareQuery($sql);
-        $this->WithDataExecute($data);
+        $results = $this->execute($sql,null,$data);
     }
 
 }

@@ -5,9 +5,8 @@ class SelectClass extends DatabaseClass {
 
     public function selectAll($table,$order_by = null) {
         $sql = $this->createSelectQuery($table,$order_by);
-        $this->prepareQuery($sql);
-        $this->execute();
-        return $this->stmt->fetchAll(PDO::FETCH_OBJ);
+        $result = $this->execute($sql,null,null);
+        return $result;
     }
 
     public function getTotalResult($table,$order_by = null) {
@@ -19,9 +18,8 @@ class SelectClass extends DatabaseClass {
     public function selectPagination($table,$order_by = null,$starting_limit,$limit) {
         $sql = $this->createSelectQuery($table,$order_by);
         $sql = $this->setSelectLimit($sql,$starting_limit,$limit);
-        $this->prepareQuery($sql);
-        $this->execute();
-        return $this->stmt->fetchAll(PDO::FETCH_OBJ);
+        $result = $this->execute($sql,null,null);
+        return $result;
     }
 
         
