@@ -18,7 +18,6 @@ class SearchSelectClass extends SelectClass {
                 $sql .= $where_value.' LIKE :search ';
                 ($key != count($where)-1) ? $sql .= 'OR ' : '';
             }
-
         $sql = $this->setOrderBy($sql,$order_by);
         $sql = $this->setSelectLimit($sql,$starting_limit,$limit);
         return $sql;

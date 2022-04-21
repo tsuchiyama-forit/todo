@@ -12,6 +12,10 @@
     $order_by = 'id';
     $limit = 6;
 
+    if (isset($_GET['sort'])) {
+        $order_by = $_GET['sort'];
+    }
+
     $returnPage = $pageno - 1;
     $nextPage = $pageno + 1;
 
