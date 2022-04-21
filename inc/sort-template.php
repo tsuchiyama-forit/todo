@@ -9,5 +9,6 @@
         <option value="" disabled <?php echo $sort == '' ? 'selected' : '' ?>>並び替える</option>
         <option value="title" <?php echo $sort == 'title' ? 'selected' : '' ?>>タイトル</option>
         <option value="created_at" <?php echo $sort == 'created_at' ? 'selected' : '' ?>>作成日</option>
+        <option value="updated_at" <?php echo $sort == 'updated_at' ? 'selected' : '' ?>>編集日</option>
     </select>
 </div>

@@ -2,15 +2,19 @@
     <ul class="pagination mt-3">
     <li class='page-item <?php echo ($pageno == 1)? 'disabled' : '' ?>'><a class='page-link' href='?page_no=<?php echo $returnPage;?><?php echo (isset($search_item)) ? '&search_item='.$search_item : '' ?>'>戻る</a></li>
     <?php
+    $link = '';
     for ($counter = 1; $counter <= $total_pages; $counter++){
+        $link = '?page_no='.$counter;
         if ($counter == $pageno) {
         echo "<li class='active page-item'><a class='page-link'>$counter</a></li>";	
         }else{
             if (isset($search_item)) {
-                echo "<li class='page-item'><a class='page-link' href='?page_no=$counter&search_item=$search_item'>$counter</a></li>";
-            } else {
-                echo "<li class='page-item'><a class='page-link' href='?page_no=$counter'>$counter</a></li>";
+                $link .= '&search_item='.$search_item;
             }
+            if ($sort != '') {
+                $link .= '&sort='.$sort;
+            }
+            echo "<li class='page-item'><a class='page-link' href='$link'>$counter</a></li>";
         }
     }
     ?>

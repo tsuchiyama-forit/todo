@@ -2,10 +2,10 @@
     <div class="row text-center align-items-center">
         <div class="col-4 col-lg-3 overflow-scroll"><?php echo htmlspecialchars($rec['title']); ?></div>
         <div class="col-4 col-lg-3 overflow-scroll"><?php echo htmlspecialchars($rec['content']); ?></div>
-        <div class="col-4 col-lg-3 date"><?php echo ($rec['created_at'] == $rec['updated_at'])? htmlspecialchars($rec['created_at']) : htmlspecialchars($rec['updated_at']); ?>
+        <div class="col-4 col-lg-3 date"><?php echo htmlspecialchars($rec['created_at']); ?>
             <?php
                 if($rec['edit_flg'] == 1) {
-                    echo '<br><small class="edited-sign">編集済み</small>';
+                    echo '<br><small class="edited-sign">（'.htmlspecialchars($rec['updated_at']).'）編集済み</small>';
                 }
             ?>
         </div>
