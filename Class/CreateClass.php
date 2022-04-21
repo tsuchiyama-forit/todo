@@ -8,7 +8,7 @@ class CreateClass extends DatabaseClass {
         $this->prepareQuery($sql);
         $data[] = $post_title;
         $data[] = $post_content;
-        $return = $this->insertExecute($data);
+        $return = $this->WithDataExecute($data);
     }
 }
 

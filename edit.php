@@ -2,37 +2,25 @@
 <?php
     $page_title = 'ToDoアプリ｜編集';
     require_once('./inc/header.php');
+    // CreateClass　呼び込む
+    require_once('./Class/EditClass.php');
 
-    try {
-        $post_id = $_GET['id'];
+    $original = new OriginalClass();
+    $editClass = new EditClass();
 
-        $dsn = 'mysql:dbname=todo;host=localhost;charset=utf8';
-        $user = 'root';
-        $password = '';
-        $dbh = new PDO($dsn, $user, $password);
-        $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $post_id = $original->specialCharCheck($_GET['id']);
+
+    $column = ['title','content','created_at','updated_at'];
+    $table = 'posts';
+    $data[] = $post_id;
+
+    $rec = $editClass->getData($column,$table,$data);
     
-        $sql = 'SELECT title,content,created_at FROM posts WHERE id = ?';
-        $stmt = $dbh->prepare($sql);
-        $data[] = $post_id;
-        $stmt->execute($data);
-    
-        $rec = $stmt->fetch(PDO::FETCH_ASSOC);
-        $post_title = $rec['title'];
-        $post_content = $rec['content'];
+    $post_title = $rec['title'];
+    $post_content = $rec['content'];
 
-        $post_content = htmlspecialchars($post_content,ENT_QUOTES,'UTF-8');
-        $post_title = htmlspecialchars($post_title,ENT_QUOTES,'UTF-8');
-
-        $dbh = null;
-    
-
-    }
-    catch (Exception $e) {
-        print 'ただいま障害により大変ご迷惑をお掛けしております。';
-        exit();
-    }
-
+    $post_content = htmlspecialchars($post_content,ENT_QUOTES,'UTF-8');
+    $post_title = htmlspecialchars($post_title,ENT_QUOTES,'UTF-8');
 ?>
 
 <div class="todo d-flex align-items-center">

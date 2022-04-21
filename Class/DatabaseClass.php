@@ -35,8 +35,8 @@ class DatabaseClass {
         return $this->stmt->execute();
     }
 
-    public function insertExecute($data) {
-        return $this->stmt->execute($data);
+    public function WithDataExecute($data) {
+        $this->stmt->execute($data);
     }
 
     public function prepareQuery($sql) {
