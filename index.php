@@ -13,7 +13,7 @@
         <!-- New ToDo Button Modal -->
         <div class="row justify-content-between pt-3 pb-3">
             <div class="col-12 col-lg-4 d-flex align-items-center">
-                <button type="button" class="btn btn-primary col-6" data-bs-toggle="modal" data-bs-target="#new-Todo">
+                <button type="button" class="btn btn-primary bg-dark border-dark col-6" data-bs-toggle="modal" data-bs-target="#new-Todo">
                     ToDo 新規作成
                 </button>
                 <!-- Require Sort Template -->

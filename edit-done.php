@@ -1,13 +1,9 @@
 <?php
-// EditClass　呼び込む
+$page_title = 'ToDoアプリ｜編集終了';
+require_once('./inc/header.php');
 require_once('./Class/EditClass.php');
 
-// OriginalClass 呼び込む
-require_once('./Class/OriginalClass.php');
-
-$original = new OriginalClass();
 $editClass = new EditClass();
-
 
 $post_id = $_POST['post_id'];
 $post_title = $_POST['title'];
@@ -36,6 +32,7 @@ $data[] = 1;
 $data[] = $post_id;
 
 $editClass->updateData($column,$table,$data);
+
 header('Location: ./index.php');
 
 

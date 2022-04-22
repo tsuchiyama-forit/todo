@@ -25,7 +25,7 @@
 
 <div class="todo d-flex align-items-center">
     <div class="container">
-        <form action="./edit-done.php" method="post">
+        <form action="./edit-confirm.php" method="post">
                 <input type="hidden" name="post_id" value="<?php echo $post_id; ?>">
                 <div class="mb-3">
                     <label for="title-input" class="form-label">タイトル</label>
