@@ -47,7 +47,7 @@ class DatabaseClass {
         return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // stnを準備する
+    // stmtを準備する
     public function prepareQuery($sql) {
         $this->stmt = $this->dbh->prepare($sql);
     }

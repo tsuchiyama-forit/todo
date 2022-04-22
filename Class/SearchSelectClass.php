@@ -19,6 +19,7 @@ class SearchSelectClass extends SelectClass {
         $sql = 'SELECT * FROM '.$table.' WHERE ';
             foreach($where as $key => $where_value) {
                 $sql .= $where_value.' LIKE :search ';
+                // 最後のForeachにはORを付けないための判定
                 ($key != count($where)-1) ? $sql .= 'OR ' : '';
             }
         $sql = $this->setOrderBy($sql,$order_by);
