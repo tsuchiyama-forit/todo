@@ -4,6 +4,7 @@ require_once('./Class/DatabaseClass.php');
 
 class EditClass extends DatabaseClass {
 
+    // Select分で今編集使用とするところのみの情報を取得する
     public function getData($column,$table,$data) {
         $sql = 'SELECT ';
         foreach($column as $key => $value) {
@@ -17,6 +18,7 @@ class EditClass extends DatabaseClass {
         return $results[0];
     }
 
+    // UpdateでPostの情報を編集する関数
     public function updateData($column,$table,$data) {
         $sql = 'UPDATE '.$table.' SET ';
         foreach($column as $key => $value) {

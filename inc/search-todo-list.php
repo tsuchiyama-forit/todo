@@ -8,6 +8,7 @@ if (empty($search_item)) {
 
 // For Pagination
 
+// Page_noのGetパラメターがあればそれを取得、なければ１にする
 if(isset($_GET['page_no'])) {
     $pageno = $_GET['page_no'];
 } else {
@@ -26,12 +27,14 @@ $where = ['title','content'];
 $limit = 6;
 $starting_limit = ($pageno-1)*$limit;
 
+// SelectClassでgetTotalSearchResult関数を呼び出しWhere条件ありでレコードの件数を取得
 $total_results = $selectClass->getTotalSearchResult($table,null,$where,null,null,$search_item);
 $total_pages = ceil($total_results/$limit);
 
-// $result = $stmt->fetchAll();
+// SelectClassでSearchSelect関数を呼び出しWhere条件ありでレコードを配列として取得
 $result = $selectClass->SearchSelect($table,$order_by,$where,$starting_limit,$limit,$search_item);
 
+// 検索値と一致するものがないかを判定
 if (count($result) != 0) { 
     //  For文の中身を取り出す
     for ($i=0; $i < count($result); $i++):

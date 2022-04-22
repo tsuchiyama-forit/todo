@@ -4,7 +4,7 @@
 
 class OriginalClass {
 
-    // Function for htmlspecialchars
+    // htmlspecialchars用の関数
     public function specialCharCheck($text) {
         return htmlspecialchars($text,ENT_QUOTES,'UTF-8');
     }

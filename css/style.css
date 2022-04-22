@@ -1,5 +1,5 @@
 .todo {
-    min-height: 88.9vh;
+    min-height: 90.5vh;
     background-color: #f3f3f3;
 }
 
@@ -53,6 +53,15 @@
 
 .search-form label {
     font-size: 12px;
+}
+
+.page-link {
+    color: #000;
+}
+
+.page-item.active .page-link {
+    background-color: #000;
+    border-color: #eee;
 }
 
 @media screen and (max-width:480px) {

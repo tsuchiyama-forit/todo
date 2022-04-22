@@ -3,7 +3,9 @@
         <small>Copyright &copy; ToDoアプリケーション（土山）</small>
         </div>
     </footer>
+    <!-- Bootstrap用のJS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <!-- ソートするためのJS -->
     <script>
         $(function() {
             $('#sort_select').on('change', function() {
@@ -20,7 +22,7 @@
             });
         });
 
-
+        // 今実在しているGetパラメーターを取得する
         function findGetParameter(parameterName) {
             var result = null,
                 tmp = [];
