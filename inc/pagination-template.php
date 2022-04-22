@@ -1,12 +1,12 @@
 <nav aria-label="Page navigation">
     <ul class="pagination mt-3">
-    <li class='page-item <?php echo ($pageno == 1)? 'disabled' : '' ?>'><a class='page-link' href='?page_no=<?php echo $returnPage;?><?php echo (isset($search_item)) ? '&search_item='.$search_item : '' ?>'>戻る</a></li>
+    <li class='page-item <?php echo ($page_no == 1)? 'disabled' : '' ?>'><a class='page-link' href='?page_no=<?php echo $returnPage;?><?php echo (isset($search_item)) ? '&search_item='.$search_item : '' ?>'>戻る</a></li>
     <?php
     $link = '';
     for ($counter = 1; $counter <= $total_pages; $counter++)
     {
         $link = '?page_no='.$counter;
-        if ($counter == $pageno) {
+        if ($counter == $page_no) {
         echo "<li class='active page-item'><a class='page-link'>$counter</a></li>";	
         }else{
             if (isset($search_item)) {
@@ -19,6 +19,6 @@
         }
     }
     ?>
-    <li class='page-item <?php echo ($pageno == $total_pages)? 'disabled' : '' ?>'><a class='page-link' href='?page_no=<?php echo $nextPage;?><?php echo (isset($search_item)) ? '&search_item='.$search_item : '' ?>'>次へ</a></li>
+    <li class='page-item <?php echo ($page_no == $total_pages)? 'disabled' : '' ?>'><a class='page-link' href='?page_no=<?php echo $nextPage;?><?php echo (isset($search_item)) ? '&search_item='.$search_item : '' ?>'>次へ</a></li>
     </ul>
 </nav>

@@ -10,13 +10,13 @@ if (empty($search_item)) {
 
 // Page_noのGetパラメターがあればそれを取得、なければ１にする
 if(isset($_GET['page_no'])) {
-    $pageno = $_GET['page_no'];
+    $page_no = $_GET['page_no'];
 } else {
-    $pageno = 1;
+    $page_no = 1;
 }
 
-$returnPage = $pageno - 1;
-$nextPage = $pageno + 1;
+$returnPage = $page_no - 1;
+$nextPage = $page_no + 1;
 
 ($returnPage == 0) ? $returnPage = 1 : ''; // If ReturnPage is 0 Make Its Value into 1
 ($nextPage == $total_pages) ? $nextPage = $total_pages : ''; // If NextPage is Equal to TotalPages Turn Its Value into TotalPages Value
@@ -25,7 +25,7 @@ $table = 'posts';
 $order_by = 'id';
 $where = ['title','content'];
 $limit = 6;
-$starting_limit = ($pageno-1)*$limit;
+$starting_limit = ($page_no-1)*$limit;
 
 // SelectClassでgetTotalSearchResult関数を呼び出しWhere条件ありでレコードの件数を取得
 $total_results = $selectClass->getTotalSearchResult($table,null,$where,null,null,$search_item);

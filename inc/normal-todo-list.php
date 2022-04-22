@@ -3,9 +3,9 @@
     // For Pagination
     // Page_noのGetパラメターがあればそれを取得、なければ１にする
     if(isset($_GET['page_no'])) {
-        $pageno = $_GET['page_no'];
+        $page_no = $_GET['page_no'];
     } else {
-        $pageno = 1;
+        $page_no = 1;
     }
 
     $table = 'posts';
@@ -23,14 +23,14 @@
         $arrange = null;
     }
 
-    $returnPage = $pageno - 1;
-    $nextPage = $pageno + 1;
+    $returnPage = $page_no - 1;
+    $nextPage = $page_no + 1;
 
     // SelectClassでgetTotalResult関数を呼び出し、レコードの件数を取得
     $total_results = $selectClass->getTotalResult($table,$order_by);
     // マックスページを取得する 2.2の場合3にするため、情報ミスなどがありません
     $total_pages = ceil($total_results/$limit);
-    $starting_limit = ($pageno-1)*$limit;
+    $starting_limit = ($page_no-1)*$limit;
 
     ($returnPage == 0) ? $returnPage = 1 : ''; // ０ページに行かないように０になったら、１にする
     ($nextPage == $total_pages) ? $nextPage = $total_pages : ''; // NextPageが実際のページより超えないため、同じ値になれば、$total_pageと同じにする
