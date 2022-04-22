@@ -7,8 +7,8 @@ class DeleteClass extends DatabaseClass {
     // WhereIDで削除する
     public function deletePost($post_id) {
         $sql = 'DELETE FROM posts WHERE id = ?';
-        $this->prepareQuery($sql);
         $data[] = $post_id;
+        $this->prepareQuery($sql);
         $this->execute($sql,null,$data);
     }
     

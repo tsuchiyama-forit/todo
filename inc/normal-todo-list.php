@@ -17,6 +17,12 @@
         $order_by = $_GET['sort'];
     }
 
+    if ($order_by == 'title') {
+        $arrange = ' ASC';
+    } else {
+        $arrange = null;
+    }
+
     $returnPage = $pageno - 1;
     $nextPage = $pageno + 1;
 
@@ -30,7 +36,7 @@
     ($nextPage == $total_pages) ? $nextPage = $total_pages : ''; // NextPageが実際のページより超えないため、同じ値になれば、$total_pageと同じにする
     
     // SelectClassでselectPagination関数を呼び出し、LimitのあるSQLでレコードを配列として取得する
-    $results = $selectClass->selectPagination($table,$order_by,$starting_limit,$limit);
+    $results = $selectClass->selectPagination($table,$order_by,$starting_limit,$limit,$arrange);
 
     //  For文の中身を取り出す
     for ($i=0; $i < count($results); $i++):

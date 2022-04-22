@@ -14,7 +14,7 @@
 
     ?>
 
-        <div class="container">
+        <div class="container vh-100 d-flex flex-column justify-content-center">
             <form action="edit-done.php" method="post">
                 <input type="hidden" name="post_id" value="<?php echo $post_id; ?>">
                 <div class="mb-3">

@@ -22,7 +22,7 @@ class SearchSelectClass extends SelectClass {
                 // 最後のForeachにはORを付けないための判定
                 ($key != count($where)-1) ? $sql .= 'OR ' : '';
             }
-        $sql = $this->setOrderBy($sql,$order_by);
+        $sql = $this->setOrderBy($sql,$order_by,null);
         $sql = $this->setSelectLimit($sql,$starting_limit,$limit);
         return $sql;
     }

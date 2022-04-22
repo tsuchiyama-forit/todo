@@ -19,10 +19,10 @@
                 <!-- Require Sort Template -->
                 <?php require_once('./inc/sort-template.php'); ?>
             </div>
-            <form action="./" method="POST" class="d-flex align-items-center col-12 col-lg-4 text-right search-form">
+            <form action="./" method="POST" class="d-flex justify-content-end align-items-center col-12 col-lg-4 text-right search-form">
                 <label for="search_bar" class="me-3">検索バー</label>
                 <input type="text" id="search_bar" name="search_item" class="form-control w-50 me-1">
-                <input type="submit" class="btn search-btn" value="検索　">
+                <input type="submit" class="btn search-btn" value="検索">
             </form>
         </div>
         <div class="todo-lists">
