@@ -14,7 +14,7 @@
                 <a class="btn btn-success" href="./edit.php?id=<?php echo $rec['id']; ?>" role="button">編集</a>
             </div>
             <div class="col-6">
-                <a class="btn btn-danger" href="./delete.php?id=<?php echo $rec['id']; ?>&page_no=<?php echo $page_no; ?><?php echo (isset($search_item)) ? '&search_item='.$search_item : '' ?>" role="button">削除</a>
+                <a id="deleteBtn" onclick= "return confirm('削除してもよろしいでしょうか？')" class="btn btn-danger" href="./delete.php?id=<?php echo $rec['id']; ?>&page_no=<?php echo $page_no; ?><?php echo (isset($search_item)) ? '&search_item='.$search_item : '' ?>" role="button">削除</a>
             </div>
         </div>
     </div>
