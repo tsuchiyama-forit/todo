@@ -33,6 +33,12 @@ class DatabaseClass {
     // $this->stmt をExecuteするための関数
     public function execute($sql, $search_item = null, $data = null) {
         $this->prepareQuery($sql);
+        $this->checkExecute($search_item,$data);
+        // 配列として情報を戻す
+        return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function checkExecute($search_item,$data) {
         // SearchItemがNullではなければ、SearchのためのBindをする
         if (!is_null($search_item)) {
             $this->stmt->bindValue(':search', '%'.$search_item.'%',PDO::PARAM_STR);
@@ -43,8 +49,14 @@ class DatabaseClass {
         } else {
             $this->stmt->execute();
         }
-        // 配列として情報を戻す
-        return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function separateExecute($data) {
+        if (!is_null($data)) {
+            $this->stmt->execute($data);
+            exit;
+        }
+            $this->stmt->execute();
     }
 
     // stmtを準備する

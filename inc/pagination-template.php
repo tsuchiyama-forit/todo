@@ -27,7 +27,7 @@ if ($sort != '') {
     <?php endif; ?>
 
     <!-- PageNoが１のとき３ページを表示させるため -->
-    <?php if ($page_no == 1):?>
+    <?php if ($page_no == 1 && $total_pages >= 3):?>
         <li class='page-item'><a class='page-link' href='?page_no=<?php echo ($page_no + 2).$link;?>'><?php echo $page_no + 2 ?></a></li>
     <?php endif; ?>
 

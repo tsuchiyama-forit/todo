@@ -41,6 +41,8 @@
     //  For文の中身を取り出す
     for ($i=0; $i < count($results); $i++):
         $rec = $results[$i];
+        $rec['created_at'] = strtotime($rec['created_at']);
+        $rec['updated_at'] = strtotime($rec['updated_at']);
         require('./inc/todo-row-template.php');
         $bgFlg++;
     endfor;

@@ -14,7 +14,7 @@ $post_content = $original->specialCharCheck($post_content);
 $post_title = $original->specialCharCheck($post_title);
 
 
-$today = date("Y-m-d");
+$today = date("Y-m-d H:i:s");
 
 $column = [
     'title',
