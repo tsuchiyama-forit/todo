@@ -13,7 +13,7 @@ if ($sort != '') {
     <ul class="pagination mt-3">
     <li class='page-item <?php echo ($page_no == 1)? 'disabled' : '' ?>'><a class='page-link' href='?page_no=<?php echo $returnPage.$link;?><?php echo (isset($search_item)) ? '&search_item='.$search_item : '' ?>'>戻る</a></li>
     <?php 
-    if ($page_no == 1): //１だったら１引かれているPageNoを表示しない
+    if ($page_no == 1): //１だったら１引かれているPageNoを表示しない　※これをしないと０ページのリンクも作成される
     else:
     ?>
         <li class='page-item'><a class='page-link' href='?page_no=<?php echo ($page_no -1).$link ;?>'><?php echo $page_no - 1 ?></a></li>
