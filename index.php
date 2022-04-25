@@ -38,6 +38,33 @@
             </div>
 
             <?php
+            // Page_noのGetパラメターがあればそれを取得、なければ１にする
+            if(isset($_GET['page_no'])) {
+                $page_no = $_GET['page_no'];
+            } else {
+                $page_no = 1;
+            }
+
+            $returnPage = $page_no - 1;
+            $nextPage = $page_no + 1;
+
+                // GetパラメターでSortがあればOrderbyそれによって変える
+            if (isset($_GET['sort'])) {
+                $order_by = $_GET['sort'];
+            }
+
+            if ($order_by == 'title') {
+                $arrange = ' ASC';
+            } else {
+                $arrange = null;
+            }
+
+            $table = 'posts';
+            $order_by = 'id';
+            $limit = 6;
+            $starting_limit = ($page_no-1)*$limit;
+
+            $where = ['title','content']; // Use Only for Searching Item
 
             //  SearchItemがあるかないを判定する（それにより違うテンプレートを呼び出す）
             if (isset($_POST['search_item']) || $_GET['search_item']) {
@@ -45,7 +72,7 @@
             } else {
                 require_once('./inc/normal-todo-list.php');
             }
-                ?>
+            ?>
 
         </div>
         <!-- ToDo 新規作成 Modal -->

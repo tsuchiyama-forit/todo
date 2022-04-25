@@ -8,24 +8,8 @@ if (empty($search_item)) {
 
 // For Pagination
 
-// Page_noのGetパラメターがあればそれを取得、なければ１にする
-if(isset($_GET['page_no'])) {
-    $page_no = $_GET['page_no'];
-} else {
-    $page_no = 1;
-}
-
-$returnPage = $page_no - 1;
-$nextPage = $page_no + 1;
-
 ($returnPage == 0) ? $returnPage = 1 : ''; // If ReturnPage is 0 Make Its Value into 1
 ($nextPage == $total_pages) ? $nextPage = $total_pages : ''; // If NextPage is Equal to TotalPages Turn Its Value into TotalPages Value
-
-$table = 'posts';
-$order_by = 'id';
-$where = ['title','content'];
-$limit = 6;
-$starting_limit = ($page_no-1)*$limit;
 
 // SelectClassでgetTotalSearchResult関数を呼び出しWhere条件ありでレコードの件数を取得
 $total_results = $selectClass->getTotalSearchResult($table,null,$where,null,null,$search_item);
@@ -39,6 +23,8 @@ if (count($result) != 0) {
     //  For文の中身を取り出す
     for ($i=0; $i < count($result); $i++):
         $rec = $result[$i];
+        $rec['created_at'] = strtotime($rec['created_at']);
+        $rec['updated_at'] = strtotime($rec['updated_at']);
         require('./inc/todo-row-template.php');
         $bgFlg++;
     endfor;
