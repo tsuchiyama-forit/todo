@@ -53,7 +53,7 @@
                 $order_by = $_GET['sort'];
             }
 
-            if ($order_by == 'title') {
+            if ($order_by === 'title') {
                 $arrange = ' ASC';
             } else {
                 $arrange = null;
