@@ -1,43 +1,31 @@
 <!-- Get Header -->
 <?php
     $page_title = 'ToDoアプリ｜編集';
-    require_once('./header.php');
+    require_once('./inc/header.php');
+    // CreateClass　呼び込む
+    require_once('./Class/EditClass.php');
 
-    try {
-        $post_id = $_GET['id'];
+    $original = new OriginalClass();
+    $editClass = new EditClass();
 
-        $dsn = 'mysql:dbname=todo;host=localhost;charset=utf8';
-        $user = 'root';
-        $password = '';
-        $dbh = new PDO($dsn, $user, $password);
-        $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $post_id = $original->specialCharCheck($_GET['id']);
+
+    $column = ['title','content','created_at','updated_at'];
+    $table = 'posts';
+    $data[] = $post_id;
+
+    $rec = $editClass->getData($column,$table,$data);
     
-        $sql = 'SELECT title,content,created_at FROM posts WHERE id = ?';
-        $stmt = $dbh->prepare($sql);
-        $data[] = $post_id;
-        $stmt->execute($data);
-    
-        $rec = $stmt->fetch(PDO::FETCH_ASSOC);
-        $post_title = $rec['title'];
-        $post_content = $rec['content'];
+    $post_title = $rec['title'];
+    $post_content = $rec['content'];
 
-        $post_content = htmlspecialchars($post_content,ENT_QUOTES,'UTF-8');
-        $post_title = htmlspecialchars($post_title,ENT_QUOTES,'UTF-8');
-
-        $dbh = null;
-    
-
-    }
-    catch (Exception $e) {
-        print 'ただいま障害により大変ご迷惑をお掛けしております。';
-        exit();
-    }
-
+    $post_content = $original->specialCharCheck($post_content);
+    $post_title = $original->specialCharCheck($post_title);
 ?>
 
 <div class="todo d-flex align-items-center">
     <div class="container">
-        <form action="./edit-done.php" method="post">
+        <form action="./edit-confirm.php" method="post">
                 <input type="hidden" name="post_id" value="<?php echo $post_id; ?>">
                 <div class="mb-3">
                     <label for="title-input" class="form-label">タイトル</label>
@@ -57,5 +45,5 @@
 
 <!-- Get Footer -->
 <?php
-    require_once('./footer.php');
+    require_once('./inc/footer.php');
 ?>

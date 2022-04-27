@@ -1,3 +1,13 @@
+<?php
+    require_once('./Class/OriginalClass.php');
+    require_once('./Class/SearchSelectClass.php');
+
+    // すべてのクラスをインスタンス化します
+    // SelectClass インスタンス
+    $selectClass = new SearchSelectClass();
+    $original = new OriginalClass();
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>

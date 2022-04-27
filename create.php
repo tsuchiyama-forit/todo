@@ -1,69 +1,30 @@
-<!-- Get Header -->
 <?php
-    $page_title = 'ToDoアプリ｜新規作成';
-    require_once('./header.php');
-?>
-<?php
+// CreateClass　呼び込む
+require_once('./Class/CreateClass.php');
+// OrignalClass 呼び込む
+require_once('./Class/OriginalClass.php');
 
-// タイトルは５０文字超えるとDBに保存しない
-if (strlen($_POST['title']) > 50 ) {
-?>
-    <div class="container">
-        <div class="d-flex justify-content-center flex-column align-items-center mt-5">
-            <h1>タイトルの文字数が多すぎます。減らしてください。</h1><br>
-            <button type="button" class="btn btn-danger w-50" onclick="history.back()">戻る</button>
-        </div>
-    </div>
-<?php
-exit();
-}
+$original = new OriginalClass();
+$createClass = new CreateClass();
 
-// タイトルと内容が空欄の場合
-if ($_POST['title'] == ' ' || $_POST['content'] == ' ' ) {
-?>
-    <div class="container">
-        <div class="d-flex justify-content-center flex-column align-items-center mt-5">
-            <h1>タイトルと内容欄を正しく記入してください！</h1><br>
-            <button type="button" class="btn btn-danger w-50" onclick="history.back()">戻る</button>
-        </div>
-    </div>
-<?php
-exit();
-}
+$post_title = $_POST['title'];
+$post_content = $_POST['content'];
 
+$post_title = $original->specialCharCheck($post_title);
+$post_content = $original->specialCharCheck($post_content);
 
-try {
-
-    $post_title = $_POST['title'];
-    $post_content = $_POST['content'];
-    
-    $post_title = htmlspecialchars($post_title,ENT_QUOTES,'UTF-8');
-    $post_content = htmlspecialchars($post_content,ENT_QUOTES,'UTF-8');
-
-    $dsn = 'mysql:dbname=todo;host=localhost;charset=utf8';
-    $user = 'root';
-    $password = '';
-    $dbh = new PDO($dsn, $user, $password);
-    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    $sql = 'INSERT INTO posts (title,content) VALUES (?,?)';
-    $stmt = $dbh->prepare($sql);
-    $data[] = $post_title;
-    $data[] = $post_content;
-    $stmt->execute($data);
-
-    $dbh = null;
-
-    header('Location: ./index.php');
-
-} catch (Exception $e) {
-    print 'ただいま障害により大変ご迷惑をお掛けしております。';
+if ($original->newTitleLengthCheck($post_title)) {
+    require_once('./inc/titleTooLongError.php');
     exit();
 }
 
-?>
+// タイトルと内容が空欄の場合
+if ($original->checkEmpty($post_title) || $original->checkEmpty($post_content) ) {
+    require_once('./inc/noContentsError.php');
+    exit();
+}
 
-<!-- Get Footer -->
-<?php
-    require_once('./footer.php');
+$createClass->insertPost($post_title,$post_content);
+header('Location: ./index.php');
+
 ?>

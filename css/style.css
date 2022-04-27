@@ -1,5 +1,10 @@
 .todo {
     min-height: 90.5vh;
+    background-color: #f3f3f3;
+}
+
+.todo .container {
+    background-color: #fff;
 }
 
 .edit-col {
@@ -50,6 +55,15 @@
     font-size: 12px;
 }
 
+.page-link {
+    color: #000;
+}
+
+.page-item.active .page-link {
+    background-color: #000;
+    border-color: #eee;
+}
+
 @media screen and (max-width:480px) {
     .title-buttons {
         display: none!important;
@@ -61,6 +75,10 @@
 
     .content-buttons {
         margin-top: 10px;
+    }
+
+    .content-buttons a {
+        font-size: 10px;
     }
 
     .search-form {
